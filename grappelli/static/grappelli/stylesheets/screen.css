@@ -4129,6 +4129,11 @@ table td>input[type="text"],table td>input[type="password"],table td>input[type=
     margin-bottom: -5px !important
 }
 
+#quick-blog-form textarea, 
+#gallery_form textarea {
+    height: 100px;
+}
+
 table td>textarea,table td div.grp-readonly,table th>textarea,table th div.grp-readonly {
     position: relative;
     margin: -5px 0 -5px !important
@@ -6054,7 +6059,8 @@ body.grp-change-form #grp-content-container>form,body.grp-change-form #grp-conte
 }
 
 #grp-breadcrumbs>ul li:last-child {
-    padding-right: 0
+    padding-right: 0;
+    color: black;
 }
 
 #grp-breadcrumbs>ul li.last {
