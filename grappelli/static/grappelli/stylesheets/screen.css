@@ -1177,7 +1177,7 @@ tr p.file-upload {
 }
 
 p.preview {
-    margin: 5px 0 0
+    margin: 5px 0 0;
 }
 
 tr p.preview {
@@ -1449,7 +1449,8 @@ select[multiple=multiple] {
 textarea {
     vertical-align: top;
     padding: 5px 5px;
-    height: 60px;
+    /*height: 60px;*/
+    height: 500px;
     overflow: auto
 }
 
@@ -2022,7 +2023,7 @@ input[type="url"],input[type="email"],input.vTextField,input.vURLField,input.vFi
 }
 
 .grp-row input[type="url"],.grp-row input[type="email"],.grp-row .vTextField,.grp-row .vURLField,.grp-row .vFileBrowseField,.grp-row textarea,.grp-row .vLargeTextField,.grp-row .vXMLLargeTextField,.grp-autocomplete-wrapper-m2m {
-    width: 758px
+    width: 500px
 }
 
 .grp-row select {
@@ -2464,7 +2465,7 @@ input[type="url"],input[type="email"],input.vTextField,input.vURLField,input.vFi
     clear: both;
     margin: 0 0 5px;
     padding: 0;
-    width: 100%;
+    /*width: 100%;*/
     border: 1px solid #ccc;
     background: #eee;
     -moz-border-radius: 3px;
@@ -3963,7 +3964,7 @@ table {
     padding: 0;
     border-spacing: none;
     border-collapse: separate;
-    /*border: 1px solid #ccc;*/
+    border: 1px solid #ccc;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px
@@ -6000,7 +6001,7 @@ header#grp-header #grp-user-tools {
     clear: both;
     /* top:80px; */
     padding: 0 20px 120px;
-    width: 100%;
+    /*width: 100%;*/
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
