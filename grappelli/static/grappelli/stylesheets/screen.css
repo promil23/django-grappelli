@@ -4007,6 +4007,9 @@ table thead th:first-of-type {
     -webkit-border-top-left-radius: 2px;
     border-top-left-radius: 2px
 }
+.grp-filebrowser.grp-popup table thead th:first-of-type {
+    min-width: 74px;
+}
 
 table thead th:last-of-type {
     -moz-border-radius-topright: 2px;
