@@ -168,12 +168,33 @@
                     {{ content }}
                     {% block filters %}{% endblock %}
                     <!-- FOOTER -->
-                    {% block footer %}{% endblock %}
+                    {% block footer %}
+                    {% if form.this_is_the_login_form %}
+                        <script src="{% static "mezzanine/js/admin/login.js" %}"></script>
+                    {% else %}
+                        {% if user.is_staff %}
+                            {% if not is_popup and not request.GET.pop %}
+                            <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
+                            <script src="{% static "mezzanine/chosen/chosen-0.9.12.jquery.js" %}"></script>
+                            <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
+
+                            {% endif %}
+                            <script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
+                            {% if settings.GRAPPELLI_INSTALLED %}
+                            <script src="{% static "mezzanine/js/admin/collapse_backport.js" %}"></script>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {% endblock %}
                 {% endblock %}
             </div>
 
         </article>
 
     </div>
+{% block footer_js %}
+<script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
+{% include "includes/footer_scripts.html" %}
+{% endblock %}
 </body>
 </html>
