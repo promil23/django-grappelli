@@ -1454,6 +1454,10 @@ textarea {
     overflow: auto
 }
 
+.form-row.content textarea {
+    height: initial;
+}
+
 fieldset.monospace textarea {
     font-family: "Bitstream Vera Sans Mono",Monaco,"Courier New",Courier,monospace
 }

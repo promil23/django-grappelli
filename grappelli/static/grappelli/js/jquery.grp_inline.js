@@ -122,6 +122,7 @@
                 empty_template = inline.find("#" + options.prefix + "-empty");
             // callback
             options.onBeforeAdded(inline);
+
             // create new form
             var index = parseInt(totalForms.val(), 10),
                 form = empty_template.clone(true);
@@ -136,6 +137,13 @@
             // adding/removing, like those used in django-autocomplete-light
             form.insertBefore(empty_template)
                 .addClass(options.formCssClass);
+
+            //init MCE control if exists
+            var mceTextArea = form.find('.mceEditor').eq(0);
+            if (mceTextArea) {
+               tinyMCEOptions['selector'] = '#' + mceTextArea.attr('id');
+               tinyMCE.init(tinyMCEOptions);
+            }
             // update total forms
             totalForms.val(index + 1);
             // hide add button in case we've hit the max, except we want to add infinitely
