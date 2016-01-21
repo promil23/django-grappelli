@@ -1,9 +1,12 @@
 
-function CustomFileBrowser(field_name, url, type, win) {
+//function CustomFileBrowser(field_name, url, type, win) {
+function myFilePicker(callback, value, meta) {
     
     var cmsURL = '/admin/filebrowser/browse/?pop=2';
-    cmsURL = cmsURL + '&type=' + type;
+    //cmsURL = cmsURL + '&type=' + type;
+    cmsURL = cmsURL + '&type=' + meta.filetype;
     
+    console.log('grapp');
     tinyMCE.activeEditor.windowManager.open({
         file: cmsURL,
         width: 980,  // Your dimensions may differ - toy around with them!
@@ -13,8 +16,12 @@ function CustomFileBrowser(field_name, url, type, win) {
         inline: 'no',  // This parameter only has an effect if you use the inlinepopups plugin!
         close_previous: 'no'
     }, {
-        window: win,
-        input: field_name,
+        //window: win,
+        //input: field_name,
+        oninsert: function (url) {
+            console.log('eeeee');
+            callback(url);
+        },
         editor_id: tinyMCE.selectedInstance.editorId
     });
     return false;
@@ -41,7 +48,12 @@ tinyMCE.init({
     // directionality : "rtl",
     
     // Callbacks
-    file_browser_callback: 'CustomFileBrowser',
+    //file_browser_callback: 'CustomFileBrowser',
+
+    file_picker_callback: function (callback, value, meta) {
+        myFilePicker(callback, value, meta);
+    },
+
     
     // Cleanup/Output
     element_format: 'xhtml',
