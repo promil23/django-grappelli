@@ -1450,12 +1450,13 @@ textarea {
     vertical-align: top;
     padding: 5px 5px;
     /*height: 60px;*/
-    height: 500px;
+    //height: 500px;
+    //width: 400px;
     overflow: auto
 }
 
 .form-row.content textarea {
-    height: initial;
+    //height: initial;
 }
 
 fieldset.monospace textarea {
@@ -2026,7 +2027,7 @@ input[type="url"],input[type="email"],input.vTextField,input.vURLField,input.vFi
     height: 118px
 }
 
-.grp-row input[type="url"],.grp-row input[type="email"],.grp-row .vTextField,.grp-row .vURLField,.grp-row .vFileBrowseField,.grp-row textarea,.grp-row .vLargeTextField,.grp-row .vXMLLargeTextField,.grp-autocomplete-wrapper-m2m {
+.grp-row input[type="url"],.grp-row input[type="email"],.grp-row .vTextField,.grp-row .vURLField,.grp-row .vFileBrowseField,.grp-row .vLargeTextField,.grp-row .vXMLLargeTextField,.grp-autocomplete-wrapper-m2m {
     width: 500px
 }
 
