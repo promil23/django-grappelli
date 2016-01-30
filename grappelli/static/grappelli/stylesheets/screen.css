@@ -2016,7 +2016,7 @@ input.grp-has-related-lookup,input.vDateField.hasDatepicker,input.vTimeField.has
 }
 
 input[type="url"],input[type="email"],input.vTextField,input.vURLField,input.vFileBrowseField,textarea,.vLargeTextField,.vXMLLargeTextField {
-    width: 278px
+    /*width: 278px*/
 }
 
 .row select {
@@ -2348,7 +2348,7 @@ input[type="url"],input[type="email"],input.vTextField,input.vURLField,input.vFi
     clear: both;
     margin: 0 -4px 5px;
     padding: 2px;
-    width: 100%;
+    /*width: 100%;*/
     border: 2px solid #ccc;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -2497,7 +2497,7 @@ input[type="url"],input[type="email"],input.vTextField,input.vURLField,input.vFi
 }
 
 .grp-change-form .grp-module:not(.grp-submit-row) {
-    min-width: 960px
+    min-width: 700px
 }
 
 .grp-empty-form {
@@ -6358,3 +6358,15 @@ body.grp-popup #grp-content {
     }
 }
 
+.grp-module .l-2c-fluid.grp-cell.l-d-4.publish_date .c-1,
+.grp-module .l-2c-fluid.grp-cell.l-d-4.expiry_date .c-1 {
+    width: 60px;
+    min-width: 60px;
+}
+.grp-row.grp-cells-2.grp-cells.description.gen_description textarea {
+    width: 250px;
+}
+.field-box.grp-cell.l-2c-fluid.l-d-4.gen_description .c-1 {
+    width: initial;
+    min-width: initial;
+}
