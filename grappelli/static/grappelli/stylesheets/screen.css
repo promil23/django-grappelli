@@ -3199,7 +3199,8 @@ input[type="submit"]:hover,input[type="submit"]:focus {
     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff),color-stop(100%, #eeeeee));
     background-image: -moz-linear-gradient(#ffffff,#eeeeee);
     background-image: -webkit-linear-gradient(#ffffff,#eeeeee);
-    background-image: linear-gradient(#ffffff,#eeeeee)
+    background-image: linear-gradient(#ffffff,#eeeeee);
+    margin-left: 224px;
 }
 
 a.grp-button,button.grp-button,input[type=button].grp-button {
