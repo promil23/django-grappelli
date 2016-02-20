@@ -6319,6 +6319,9 @@ body.grp-change-form #grp-content-container>form,body.grp-change-form #grp-conte
     background-image: -moz-linear-gradient(#333333,#222222);
     background-image: -webkit-linear-gradient(#333333,#222222);
     background-image: linear-gradient(#333333,#222222)
+    margin-left: 224px;
+    width: webkit-calc(100% - 224px);
+    width: calc(100% - 224px);
 }
 
 body.grp-popup #grp-navigation {
