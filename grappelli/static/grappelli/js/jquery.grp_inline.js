@@ -140,7 +140,7 @@
 
             //init MCE control if exists
             var mceTextArea = form.find('.mceEditor').eq(0);
-            if (mceTextArea) {
+            if (mceTextArea.length > 0) {
                tinyMCEOptions['selector'] = '#' + mceTextArea.attr('id');
                tinyMCE.init(tinyMCEOptions);
             }
