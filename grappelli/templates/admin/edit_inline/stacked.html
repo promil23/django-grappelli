@@ -133,12 +133,33 @@
                 }
             });
         });
+        function onBeforeRemovedDeleted(form) {
+            {% if inline_admin_formset.formset.prefix = "routes" %}
+            var prev = form.prev('.grp-dynamic-form:not(.grp-transparent)');
+            if (prev.length > 0) {
+                var destination_ct_val = prev.find('select[name*="destination_content_type"]').val();
+                var destination_obj_name = prev.find('input[id*="destination_object_id-autocomplete"]').val();
+                var destination_obj_id_val = prev.find('input[name*="destination_object_id"]').val();
+
+                form.nextAll('.grp-dynamic-form').each(function() {
+                    grp.jQuery(this).find('select[name*="origin_content_type"]').val(destination_ct_val);
+                    grp.jQuery(this).find('input[id*="origin_object_id-autocomplete"]').val(destination_obj_name);
+                    grp.jQuery(this).find('input[name*="origin_object_id"]').val(destination_obj_id_val);
+
+                    destination_ct_val = grp.jQuery(this).find('select[name*="destination_content_type"]').val();
+                    destination_obj_name = grp.jQuery(this).find('input[id*="destination_object_id-autocomplete"]').val();
+                    destination_obj_id_val = grp.jQuery(this).find('input[name*="destination_object_id"]').val();
+                });
+            }
+            {% endif %}
+        }
 
         $("#{{ inline_admin_formset.formset.prefix }}-group").grp_inline({
             {% block grp_inline_options %}
             prefix: "{{ inline_admin_formset.formset.prefix }}",
             onAfterRemoved: function(inline) {},
             onBeforeAdded: function(inline) {
+                {% if inline_admin_formset.formset.prefix = "foods" %}
                 var first = inline.find('.grp-dynamic-form:not(.grp-transparent)');
                 if (first.length > 0) {
                     var input = first.find('.vFileBrowseField');
@@ -170,24 +191,27 @@
                         }
                     } 
                 }
+                {% endif %}
 
             },
+            onBeforeDeleted: onBeforeRemovedDeleted,
+            onBeforeRemoved: onBeforeRemovedDeleted,
             onAfterAdded: function(form) {
-                {% if inline_admin_formset.formset.prefix = "foods" %}
-                /*
-                if (prev) {
-                    //var a = prev.find('.vFileBrowseField').next('a');
-                    //var href = a.attr('href');
-                    //href += '&something=124';
-                    var empty_template = form.parents('.grp-group').find("#foods-empty");
-                    var empty_a = empty_template.find('.vFileBrowseField').next('a');
-                    var empty_href = empty_a.attr('href');
-                    empty_a.attr('href', empty_href + '&something=248');
-                }
-                */
-                {% endif %}
                 grappelli.reinitDateTimeFields(form);
                 grappelli.updateSelectFilter(form);
+
+                {% if inline_admin_formset.formset.prefix = "routes" %}
+                var prev = form.prev('.grp-dynamic-form:not(.grp-transparent)');
+                if (prev.length > 0) {
+                    var destination_ct_val = prev.find('select[name*="destination_content_type"]').val();
+                    var destination_obj_name = prev.find('input[id*="destination_object_id-autocomplete"]').val();
+                    var destination_obj_id_val = prev.find('input[name*="destination_object_id"]').val();
+                    form.find('select[name*="origin_content_type"]').val(destination_ct_val);
+                    form.find('input[id*="origin_object_id-autocomplete"]').val(destination_obj_name);
+                    form.find('input[name*="origin_object_id"]').val(destination_obj_id_val);
+                }
+                {% endif %}
+
                 $.each(related_lookup_fields_fk, function() {
                     form.find("input[name^='" + prefix + "'][name$='-" + this + "']")
                     .grp_related_fk({lookup_url:"{% url 'grp_related_lookup' %}"});
