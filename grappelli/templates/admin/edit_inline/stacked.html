@@ -16,7 +16,7 @@
         {% with inline_admin_formset.opts.sortable_field_name|default:"" as sortable_field_name %}
         {% for inline_admin_form in inline_admin_formset|formsetsort:sortable_field_name %}
             <!-- element -->
-            <div class="inline-related grp-module {{ inline_admin_formset.opts.inline_classes|join:" "|default:"grp-collapse grp-closed" }}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} grp-empty-form{% endif %}"
+            <div class="inline-related grp-module {% if not forloop.last %}{{ inline_admin_formset.opts.inline_classes|join:" "|default:"grp-collapse grp-closed" }}{% else %}grp-collapse grp-open{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} grp-empty-form{% endif %}"
                 id="{{ inline_admin_formset.formset.prefix }}{% if forloop.last %}-empty{% else %}{{ forloop.counter0 }}{% endif %}">
                 <h3 class="grp-collapse-handler">{{ inline_admin_formset.opts.verbose_name }}&nbsp;&nbsp;{% if inline_admin_form.original %}{{ inline_admin_form.original }}{% endif %}</h3>
                 <ul class="grp-tools">
@@ -138,7 +138,54 @@
             {% block grp_inline_options %}
             prefix: "{{ inline_admin_formset.formset.prefix }}",
             onAfterRemoved: function(inline) {},
+            onBeforeAdded: function(inline) {
+                var first = inline.find('.grp-dynamic-form:not(.grp-transparent)');
+                if (first.length > 0) {
+                    var input = first.find('.vFileBrowseField');
+                    var a = input.next('a');
+                    var href = a.attr('href');
+                    var r = RegExp(/.*?(dir=.*?)(&.*?)*\);$/);
+                    var r_result = r.exec(href);
+                    var dir = '';
+
+                    if (r_result === null) {
+                        var r = RegExp(/uploads\/(.*)\/.*$/);
+                        r_result = r.exec(input.val());
+                        if (r_result) {
+                            var dir = 'dir=' + r_result[1];
+                            var index = href.indexOf("')");
+                            a.attr('href', href.substring(0, index) + '&' + dir + "');");
+                            r_result = ['a', dir, 'b'];
+                        }
+                    }
+
+                    if (r_result && r_result.length == 3) {
+                        dir = r_result[1];
+                        var empty_template = inline.find("#foods-empty");
+                        var empty_a = empty_template.find('.vFileBrowseField').next('a');
+                        var empty_href = empty_a.attr('href');
+                        if (empty_href.indexOf('&dir=') == -1)  {
+                            var index = empty_href.indexOf("')");
+                            empty_a.attr('href', empty_href.substring(0, index) + '&' + dir + "');");
+                        }
+                    } 
+                }
+
+            },
             onAfterAdded: function(form) {
+                {% if inline_admin_formset.formset.prefix = "foods" %}
+                /*
+                if (prev) {
+                    //var a = prev.find('.vFileBrowseField').next('a');
+                    //var href = a.attr('href');
+                    //href += '&something=124';
+                    var empty_template = form.parents('.grp-group').find("#foods-empty");
+                    var empty_a = empty_template.find('.vFileBrowseField').next('a');
+                    var empty_href = empty_a.attr('href');
+                    empty_a.attr('href', empty_href + '&something=248');
+                }
+                */
+                {% endif %}
                 grappelli.reinitDateTimeFields(form);
                 grappelli.updateSelectFilter(form);
                 $.each(related_lookup_fields_fk, function() {
