@@ -154,6 +154,36 @@
             {% endif %}
         }
 
+        function setEmptyHref(dir, inline) {
+            var empty_template = inline.find("#foods-empty");
+            var empty_a = empty_template.find('.vFileBrowseField').next('a');
+            var empty_href = empty_a.attr('href');
+            if (empty_href.indexOf('&dir=') == -1)  {
+                var index = empty_href.indexOf("')");
+                empty_a.attr('href', empty_href.substring(0, index) + '&' + dir + "');");
+            }
+        }
+
+        function setFirstHref(path, a) {
+            if (a) {
+                var href = a.attr('href');
+                var r = RegExp(/uploads\/(.*)\/.*$/);
+                r_result = r.exec(path);
+                if (r_result) {
+                    var dir = 'dir=' + r_result[1];
+                    var index = href.indexOf("')");
+                    a.attr('href', href.substring(0, index) + '&' + dir + "');");
+                    return ['a', dir, 'b'];
+                }
+            } else {
+                var r = RegExp(/uploads\/(.*)\/featured\/.*$/);
+                r_result = r.exec(path);
+                if (r_result) {
+                    return 'dir=' + r_result[1] + '/food';
+                }
+            }
+        }
+
         $("#{{ inline_admin_formset.formset.prefix }}-group").grp_inline({
             {% block grp_inline_options %}
             prefix: "{{ inline_admin_formset.formset.prefix }}",
@@ -161,6 +191,8 @@
             onBeforeAdded: function(inline) {
                 {% if inline_admin_formset.formset.prefix = "foods" %}
                 var first = inline.find('.grp-dynamic-form:not(.grp-transparent)');
+                var path = grp.jQuery('#id_featured_image').val(); 
+
                 if (first.length > 0) {
                     var input = first.find('.vFileBrowseField');
                     var a = input.next('a');
@@ -170,26 +202,14 @@
                     var dir = '';
 
                     if (r_result === null) {
-                        var r = RegExp(/uploads\/(.*)\/.*$/);
-                        r_result = r.exec(input.val());
-                        if (r_result) {
-                            var dir = 'dir=' + r_result[1];
-                            var index = href.indexOf("')");
-                            a.attr('href', href.substring(0, index) + '&' + dir + "');");
-                            r_result = ['a', dir, 'b'];
-                        }
+                        r_result = setFirstHref(input.val(), a);
                     }
 
                     if (r_result && r_result.length == 3) {
-                        dir = r_result[1];
-                        var empty_template = inline.find("#foods-empty");
-                        var empty_a = empty_template.find('.vFileBrowseField').next('a');
-                        var empty_href = empty_a.attr('href');
-                        if (empty_href.indexOf('&dir=') == -1)  {
-                            var index = empty_href.indexOf("')");
-                            empty_a.attr('href', empty_href.substring(0, index) + '&' + dir + "');");
-                        }
+                        setEmptyHref(r_result[1], inline);
                     } 
+                } else if (path !== '') {
+                    setEmptyHref(setFirstHref(path), inline);
                 }
                 {% endif %}
 
