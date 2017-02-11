@@ -134,7 +134,7 @@
             });
         });
         function onBeforeRemovedDeleted(form) {
-            {% if inline_admin_formset.formset.prefix = "routes" %}
+            {% if inline_admin_formset.formset.prefix == "routes" %}
             var prev = form.prev('.grp-dynamic-form:not(.grp-transparent)');
             if (prev.length > 0) {
                 var destination_ct_val = prev.find('select[name*="destination_content_type"]').val();
@@ -189,7 +189,7 @@
             prefix: "{{ inline_admin_formset.formset.prefix }}",
             onAfterRemoved: function(inline) {},
             onBeforeAdded: function(inline) {
-                {% if inline_admin_formset.formset.prefix = "foods" %}
+                {% if inline_admin_formset.formset.prefix == "foods" %}
                 var first = inline.find('.grp-dynamic-form:not(.grp-transparent)');
                 var path = grp.jQuery('#id_featured_image').val(); 
 
@@ -220,7 +220,7 @@
                 grappelli.reinitDateTimeFields(form);
                 grappelli.updateSelectFilter(form);
 
-                {% if inline_admin_formset.formset.prefix = "routes" %}
+                {% if inline_admin_formset.formset.prefix == "routes" %}
                 var prev = form.prev('.grp-dynamic-form:not(.grp-transparent)');
                 if (prev.length > 0) {
                     var destination_ct_val = prev.find('select[name*="destination_content_type"]').val();
